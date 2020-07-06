@@ -28,15 +28,17 @@ int main(void)
     std::cout << glGetString(GL_VERSION) << std::endl;
 
     float positions[6] = {
-        -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f
+        -0.5f, -0.5f,//first vertex (only 1 "attribute" in this vertex, position)
+         0.0f,  0.5f,//seccond vertex (only 1 "attribute" in this vertex, position)
+         0.5f, -0.5f //third vertex (only 1 "attribute" in this vertex, position)
     };
 
     unsigned int buffer;//will later be the ID of the buffer
     glGenBuffers(1, &buffer);//created buffer (section of memory on GPU)
     glBindBuffer(GL_ARRAY_BUFFER, buffer);//about to work on buffer
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);//fill buffer with data
+    glEnableVertexAttribArray(0);//enable the following atrribute
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);//define the layout of the data now in the buffer
 
 
     /* Loop until the user closes the window */
