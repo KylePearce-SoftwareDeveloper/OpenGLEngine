@@ -107,18 +107,29 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << std::endl;
 
-    float positions[6] = {
-        -0.5f, -0.5f,//first vertex (only 1 "attribute" in this vertex, position)
-         0.0f,  0.5f,//seccond vertex (only 1 "attribute" in this vertex, position)
-         0.5f, -0.5f //third vertex (only 1 "attribute" in this vertex, position)
+    float positions[] = {
+        -0.5f, -0.5f,//0 (only 1 "attribute" in this vertex, position)
+         0.5f, -0.5f,//1 (only 1 "attribute" in this vertex, position)
+         0.5f,  0.5f, //2 (only 1 "attribute" in this vertex, position)
+        -0.5f,  0.5f//3 (only 1 "attribute" in this vertex, position)
+    };
+
+    unsigned int indices[] = { //order in which to draw the above indexed vertices
+        0, 1, 2,
+        2, 3, 0
     };
 
     unsigned int buffer;//will later be the ID of the buffer
     glGenBuffers(1, &buffer);//created buffer (section of memory on GPU)
     glBindBuffer(GL_ARRAY_BUFFER, buffer);//about to work on buffer
-    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);//fill buffer with data
+    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);//fill buffer with data
     glEnableVertexAttribArray(0);//enable the following atrribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);//define the layout of the data now in the buffer
+
+    unsigned int ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
     shaderProgramSourse source = parseShader("res/shaders/basic.shader");
     unsigned int shader = CreateShader(source.vertexSource, source.fragmentSource);
@@ -130,7 +141,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);//draws using currently bound buffer (glBindBuffer) and the data that is inside it
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);//draws using currently bound buffer (glBindBuffer) and the data that is inside it
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
