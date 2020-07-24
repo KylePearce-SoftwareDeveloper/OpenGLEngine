@@ -8,6 +8,7 @@
 
 #include "../hpp/renderer.h"
 #include "../hpp/vertexBuffer.h"
+#include "../hpp/vertexBufferLayout.h"
 #include "../hpp/indexBuffer.h"
 #include "../hpp/vertexArray.h"
 #include "../hpp/shader.h"
@@ -72,21 +73,20 @@ int main(void)
         vb.unbind();
         ib.unbind();
 
+        renderer renderer;
+
         float r = 0.0f;
         float increment = 0.05f;
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
             /* Render here */
-            GLCall(glClear(GL_COLOR_BUFFER_BIT));
+            renderer.clear();
 
             shader.bind();
             shader.setUniform4f("u_Color", r, 0.3f, 0.8f, 1.0);
 
-            va.Bind();
-            ib.bind();
-
-            GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));//draws using currently bound buffer (glBindBuffer) and the data that is inside it
+            renderer.draw(va, ib, shader);
 
             if (r > 1.0f)
                 increment = -0.5f;
