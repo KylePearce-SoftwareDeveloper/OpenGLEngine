@@ -14,6 +14,9 @@
 #include "../hpp/shader.h"
 #include "../hpp/Texture.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 int main(void)
 {
     GLFWwindow* window;
@@ -69,9 +72,12 @@ int main(void)
 
         indexBuffer ib(indices, 6);
 
+        glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+
         shader shader("res/shaders/basic.shader");
         shader.bind();
         shader.setUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+        shader.setUniformMat4f("u_MVP", proj);
 
         Texture texture("res/textures/GOAT.png");
         texture.Bind();
