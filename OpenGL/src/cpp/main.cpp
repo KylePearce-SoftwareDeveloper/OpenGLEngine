@@ -51,10 +51,10 @@ int main(void)
     std::cout << glGetString(GL_VERSION) << std::endl;
     {
         float positions[] = {
-            100.0f, 100.0f, 0.0f, 0.0f,//0 (only 1 "attribute" in this vertex, position)
-             200.0f, 100.0f, 1.0f, 0.0f,//1 (only 1 "attribute" in this vertex, position)
-             200.0f, 200.0f, 1.0f, 1.0f,//2 (only 1 "attribute" in this vertex, position)
-            100.0f,  200.0f, 0.0f, 1.0f//3 (only 1 "attribute" in this vertex, position)
+            -50.0f, -50.0f, 0.0f, 0.0f,//0 (only 1 "attribute" in this vertex, position)
+             50.0f, -50.0f, 1.0f, 0.0f,//1 (only 1 "attribute" in this vertex, position)
+             50.0f,  50.0f, 1.0f, 1.0f,//2 (only 1 "attribute" in this vertex, position)
+            -50.0f,  50.0f, 0.0f, 1.0f//3 (only 1 "attribute" in this vertex, position)
         };
 
         unsigned int indices[] = { //order in which to draw the above indexed vertices
@@ -76,11 +76,10 @@ int main(void)
         indexBuffer ib(indices, 6);
 
         glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));
+        glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
         
         shader shader("res/shaders/basic.shader");
         shader.bind();
-        shader.setUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
         Texture texture("res/textures/GOAT.png");
         texture.Bind();
@@ -97,7 +96,8 @@ int main(void)
         ImGui_ImplGlfwGL3_Init(window, true);
         ImGui::StyleColorsDark();
 
-        glm::vec3 translation(200, 200, 0);
+        glm::vec3 translationA(200, 200, 0);
+        glm::vec3 translationB(400, 200, 0);
 
         float r = 0.0f;
         float increment = 0.05f;
@@ -109,14 +109,22 @@ int main(void)
 
             ImGui_ImplGlfwGL3_NewFrame();
 
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-            glm::mat4 mvp = proj * view * model;
+            
 
-            shader.bind();
-            shader.setUniform4f("u_Color", r, 0.3f, 0.8f, 1.0);
-            shader.setUniformMat4f("u_MVP", mvp);
-
-            renderer.draw(va, ib, shader);
+            {
+                glm::mat4 model = glm::translate(glm::mat4(1.0f), translationA);
+                glm::mat4 mvp = proj * view * model;
+                shader.bind();
+                shader.setUniformMat4f("u_MVP", mvp);
+                renderer.draw(va, ib, shader);
+            }
+            {
+                glm::mat4 model = glm::translate(glm::mat4(1.0f), translationB);
+                glm::mat4 mvp = proj * view * model;
+                shader.bind();
+                shader.setUniformMat4f("u_MVP", mvp);
+                renderer.draw(va, ib, shader);
+            }
 
             if (r > 1.0f)
                 increment = -0.5f;
@@ -126,7 +134,8 @@ int main(void)
             r += increment;
 
             {
-                ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
+                ImGui::SliderFloat3("TranslationA", &translationA.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f 
+                ImGui::SliderFloat3("TranslationB", &translationB.x, 0.0f, 960.0f);
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             }
 
