@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\src\vendor;$(SolutionDir)dependences\GLEW\include;$(SolutionDir)dependences\GLWF\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)OpenGL\src\vendor;$(SolutionDir)dependences\GLEW\include;$(SolutionDir)dependences\GLWF\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,6 +165,7 @@
     <ClCompile Include="src\cpp\Texture.cpp" />
     <ClCompile Include="src\cpp\vertexArray.cpp" />
     <ClCompile Include="src\cpp\vertexBuffer.cpp" />
+    <ClCompile Include="src\tests\testClearColor.cpp" />
     <ClCompile Include="src\vendor\glm\detail\glm.cpp" />
     <ClCompile Include="src\vendor\imGUI\imgui.cpp" />
     <ClCompile Include="src\vendor\imGUI\imgui_demo.cpp" />
@@ -319,6 +320,8 @@
     <ClInclude Include="src\hpp\vertexArray.h" />
     <ClInclude Include="src\hpp\vertexBuffer.h" />
     <ClInclude Include="src\hpp\vertexBufferLayout.h" />
+    <ClInclude Include="src\tests\test.h" />
+    <ClInclude Include="src\tests\testClearColor.h" />
     <ClInclude Include="src\vendor\glm\common.hpp" />
     <ClInclude Include="src\vendor\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\vendor\glm\detail\compute_vector_relational.hpp" />
