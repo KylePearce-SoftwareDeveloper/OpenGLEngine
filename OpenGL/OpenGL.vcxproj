@@ -164,6 +164,7 @@
     <ClCompile Include="src\cpp\Shader.cpp" />
     <ClCompile Include="src\cpp\Test.cpp" />
     <ClCompile Include="src\cpp\TestClearColor.cpp" />
+    <ClCompile Include="src\cpp\TestTexture2D.cpp" />
     <ClCompile Include="src\cpp\Texture.cpp" />
     <ClCompile Include="src\cpp\VertexArray.cpp" />
     <ClCompile Include="src\cpp\VertexBuffer.cpp" />
@@ -319,6 +320,7 @@
     <ClInclude Include="src\hpp\Shader.h" />
     <ClInclude Include="src\hpp\Test.h" />
     <ClInclude Include="src\hpp\TestClearColor.h" />
+    <ClInclude Include="src\hpp\TestTexture2D.h" />
     <ClInclude Include="src\hpp\Texture.h" />
     <ClInclude Include="src\hpp\VertexArray.h" />
     <ClInclude Include="src\hpp\VertexBuffer.h" />

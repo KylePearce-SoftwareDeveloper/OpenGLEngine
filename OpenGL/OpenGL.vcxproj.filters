@@ -60,6 +60,9 @@
     <ClCompile Include="src\cpp\TestClearColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\TestTexture2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl">
@@ -1368,6 +1371,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\hpp\TestClearColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hpp\TestTexture2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
