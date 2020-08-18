@@ -6,12 +6,12 @@
 #include <string>
 #include <sstream>
 
-#include "../hpp/renderer.h"
-#include "../hpp/vertexBuffer.h"
-#include "../hpp/vertexBufferLayout.h"
-#include "../hpp/indexBuffer.h"
-#include "../hpp/vertexArray.h"
-#include "../hpp/shader.h"
+#include "../hpp/Renderer.h"
+#include "../hpp/VertexBuffer.h"
+#include "../hpp/VertexBufferLayout.h"
+#include "../hpp/IndexBuffer.h"
+#include "../hpp/VertexArray.h"
+#include "../hpp/Shader.h"
 #include "../hpp/Texture.h"
 
 #include "glm/glm.hpp"
@@ -20,7 +20,7 @@
 #include "imGUI/imgui.h"
 #include "imGUI/imgui_impl_glfw_gl3.h"
 
-#include "tests/testClearColor.h"
+#include "../hpp/TestClearColor.h"
 
 int main(void)
 {
@@ -55,7 +55,7 @@ int main(void)
         GLCall(glEnable(GL_BLEND));
         GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-        renderer renderer;
+        Renderer renderer;
 
         ImGui::CreateContext();
         ImGui_ImplGlfwGL3_Init(window, true);

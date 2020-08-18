@@ -1,4 +1,4 @@
-#include "test.h"
+#include "../hpp/Test.h"
 #include "imGUI/imgui.h"
 
 namespace test
@@ -17,8 +17,6 @@ namespace test
 		}
 	}
 
-	
+
 
 }
-
-

@@ -25,7 +25,7 @@ namespace test {
 		TestMenu(Test*& currentTestPointer);
 
 		void onImGuiRender() override;
-		
+
 		template<typename T>
 		void RegisterTest(const std::string& name)
 		{
@@ -35,6 +35,7 @@ namespace test {
 		}
 	private:
 		Test*& m_CurrentTest;
-		std::vector<std::pair<std::string, std::function<Test*()>>> m_Tests;
+		std::vector<std::pair<std::string, std::function<Test* ()>>> m_Tests;
 	};
 }
+

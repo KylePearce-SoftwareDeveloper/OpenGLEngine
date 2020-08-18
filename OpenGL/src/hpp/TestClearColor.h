@@ -1,6 +1,6 @@
 #pragma once
 
-#include "test.h"
+#include "Test.h"
 
 namespace test {
 
@@ -17,3 +17,4 @@ namespace test {
 		float m_ClearColor[4];
 	};
 }
+
