@@ -89,6 +89,19 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
     return program;
 }
 
+int Shader::GetUniformLocation(const std::string& name) const
+{
+    if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+        return m_UniformLocationCache[name];
+        
+    GLCall(GLint location = glGetUniformLocation(m_RendererID, name.c_str()));
+    if (location == -1)
+        std::cout << "Warning: uniform '" << name << "' doestn't exist!" << std::endl;
+        
+    m_UniformLocationCache[name] = location;
+    return location;
+}
+
 void Shader::bind() const
 {
     GLCall(glUseProgram(m_RendererID));
@@ -101,28 +114,28 @@ void Shader::unbind() const
 
 void Shader::setUniform1i(const std::string& name, int value)
 {
-    GLCall(glUniform1i(getUniformlocation(name), value));
+    GLCall(glUniform1i(GetUniformLocation(name), value));
 }
 
 void Shader::setUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
-    GLCall(glUniform4f(getUniformlocation(name), v0, v1, v2, v3));
+    GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
 }
 
 void Shader::setUniformMat4f(const std::string& name, const glm::mat4& matrix)
 {
-    GLCall(glUniformMatrix4fv(getUniformlocation(name), 1, GL_FALSE, &matrix[0][0]));
+    GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
 }
 
-int Shader::getUniformlocation(const std::string& name)
-{
-    if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
-        return m_UniformLocationCache[name];
-
-    GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
-    if (location == -1)
-        std::cout << "Warning: uniform '" << name << "' doestn't exist!" << std::endl;
-
-    m_UniformLocationCache[name] = location;
-    return location;
-}
+//int Shader::getUniformlocation(const std::string& name)
+//{
+//    if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+//        return m_UniformLocationCache[name];
+//
+//    GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
+//    if (location == -1)
+//        std::cout << "Warning: uniform '" << name << "' doestn't exist!" << std::endl;
+//
+//    m_UniformLocationCache[name] = location;
+//    return location;
+//}
